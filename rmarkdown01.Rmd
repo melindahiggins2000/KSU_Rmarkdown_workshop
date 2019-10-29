@@ -1,0 +1,48 @@
+---
+title: "Abalones"
+author: "Melinda Higgins"
+date: "October 29, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+library(tibble)
+library(dplyr)
+library(ggplot2)
+
+# import abalone.csv dataset
+# use read_csv()
+# function from readr to import data
+abalone <- read_csv("abalone.csv")
+```
+
+## A Glimpse of the Abalone Dataset
+
+```{r dataglimpse}
+# get a glimpse of the data
+# use glimpse() function from tibble package
+glimpse(abalone)
+```
+
+## Summary of abalone dimensions
+
+```{r summary}
+# select a few variables
+# and get summary stats
+abalone %>% 
+  select(length, diameter, height) %>% 
+  summary()
+```
+
+## Plot of number of rings by shell weight
+
+```{r plot}
+# make plot of number of rings by shellWeight
+ggplot(abalone, aes(shellWeight, rings, color=sex)) +
+  geom_point() +
+  facet_wrap(vars(sex)) +
+  geom_smooth()
+```
+
