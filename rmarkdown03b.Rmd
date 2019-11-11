@@ -3,6 +3,12 @@ title: "Abalones"
 author: "Melinda Higgins"
 date: "November 10, 2019"
 output: html_document
+params:
+  sex:
+    label: "Abalone Sex"
+    value: M
+    input: select
+    choices: ["M","F","I"]
 ---
 
 ```{r setup, include=FALSE}
@@ -22,11 +28,15 @@ library(ggplot2)
 # use read_csv()
 # function from readr to import data
 abalone <- read_csv("abalone.csv")
+
+# keep only the sex specified in params above
+abalone <- abalone %>%
+  filter(sex == params$sex)
 ```
 
-## A Glimpse of the Abalone Dataset
+## A Glimpse of the Abalone Dataset - for sex = `r params$sex`
 
-Use the `glimpse()` function from the `tibble` package to take a peak at the **abalone** dataset.
+Use the `glimpse()` function from the `tibble` package to take a peak at the **abalone** dataset. 
 
 ```{r dataglimpse}
 # get a glimpse of the data
@@ -34,7 +44,7 @@ Use the `glimpse()` function from the `tibble` package to take a peak at the **a
 glimpse(abalone)
 ```
 
-## Summary of abalone dimensions
+## Summary of abalone dimensions - for sex = `r params$sex`
 
 1. Select three variables from the **abalone** dataset: _length_, _diameter_, and _height_.
 2. Run the `summary()` function to get some basic descriptive statistics.
@@ -47,7 +57,7 @@ abalone %>%
   summary()
 ```
 
-## Plot of number of rings by shell weight
+## Plot of number of rings by shell weight - for sex = `r params$sex`
 
 Make a scatterplot of the number of rings (on y-axis) by shell weight (on x-axis) and put plots in 3 separate panels by sex (i.e., male, female and infant) and add a smoothed fit line to each plot.
 
@@ -61,7 +71,7 @@ ggplot(abalone, aes(shellWeight, rings, color=sex)) +
   geom_smooth()
 ```
 
-## Regression of abalone rings by shell weight
+## Regression of abalone rings by shell weight - for sex = `r params$sex`
 
 We can save regression model results, then put the model coefficients from the `summary()` function into a nice table using the `kable()` function from the `knitr` package.
 

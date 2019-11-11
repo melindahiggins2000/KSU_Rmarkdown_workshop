@@ -25,4 +25,11 @@ ggplot(abalone, aes(shellWeight, rings, color=sex)) +
   facet_wrap(vars(sex)) +
   geom_smooth()
 
+# Run simple linear regression and save model results
+# Also save model coefficients from the `summary()` function 
+# Then view regression model results
+
+model1 <- lm(rings ~ shellWeight, data=abalone)
+sum_model1 <- summary(model1)
+sum_model1$coefficients
 
